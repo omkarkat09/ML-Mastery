@@ -41,16 +41,16 @@ This project performs **Exploratory Data Analysis (EDA)** on Airbnb listings in 
 
 
 #2 Airbnb Price Prediction Project
-📌 Overview
+##📌 Overview
 This project aims to predict Airbnb listing prices in New York City using machine learning models. The dataset includes features such as location, room type, number of reviews, and availability. The goal is to build a model that can accurately predict the price of a listing based on these features.
 
-🛠️ Tools and Technologies
+##🛠️ Tools and Technologies
 Programming Language: Python
 Libraries: Pandas, NumPy, Scikit-learn, Matplotlib, Seaborn
 Models: Linear Regression, Random Forest Regressor
 Evaluation Metrics: R² Score, Mean Absolute Error (MAE), Root Mean Squared Error (RMSE)
 
-🚀 Methodology
+##🚀 Methodology
 1- Data Cleaning:
 Removed rows with missing values.
 Dropped irrelevant columns (id, name, host_id, host_name, last_review).
@@ -69,7 +69,7 @@ Evaluated the models using R² Score, MAE, and RMSE.
 5- Visualizations:
 Visualized the result using matplotlib and seaborn.
 
-📊 Results
+##📊 Results
 The initial results from the models are as follows:
 
 Linear Regression:
@@ -82,7 +82,7 @@ R² Score: 0.13
 Mean Absolute Error (MAE): 53.81
 Root Mean Squared Error (RMSE): 170.76
 
-📝 Analysis
+##📝 Analysis
 The models' performance is currently suboptimal, as indicated by the low R² scores and high MAE/RMSE values. Key observations include: Low R² Scores: Both models explain only a small portion of the variance in the target variable (price).
 High MAE and RMSE: The models' predictions are off by an average of 
 54–60, with some significant outliers.
