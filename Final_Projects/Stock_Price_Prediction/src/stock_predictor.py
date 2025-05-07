@@ -11,8 +11,8 @@ from datetime import datetime, timedelta
 class StockPredictor:
     def __init__(self, ticker, start_date, end_date, api_key):
         self.ticker = ticker
-        self.start_date = start_date
-        self.end_date = end_date
+        self.start_date = pd.to_datetime(start_date)
+        self.end_date = pd.to_datetime(end_date)
         self.api_key = api_key
         self.scaler = MinMaxScaler(feature_range=(0, 1))
         self.model = None
@@ -27,8 +27,11 @@ class StockPredictor:
             # Rename columns to match our expected format
             data.columns = ['Open', 'High', 'Low', 'Close', 'Volume']
             
+            # Convert index to datetime if it's not already
+            data.index = pd.to_datetime(data.index)
+            
             # Filter data for the specified date range
-            mask = (data.index >= self.start_date) & (data.index <= self.end_date)
+            mask = (data.index.date >= self.start_date.date()) & (data.index.date <= self.end_date.date())
             data = data.loc[mask]
             
             # Sort by date
