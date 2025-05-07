@@ -18,6 +18,12 @@ st.write("Predict stock prices using LSTM deep learning model")
 # Sidebar for user inputs
 st.sidebar.header("Input Parameters")
 
+# Alpha Vantage API Key input
+api_key = st.sidebar.text_input("Enter Alpha Vantage API Key", type="password")
+if not api_key:
+    st.warning("Please enter your Alpha Vantage API key to continue. You can get one for free at https://www.alphavantage.co/support/#api-key")
+    st.stop()
+
 # Stock symbol input
 ticker = st.sidebar.text_input("Enter Stock Symbol", "AAPL").upper()
 
@@ -38,7 +44,7 @@ epochs = st.sidebar.slider("Training Epochs", 10, 100, 50)
 batch_size = st.sidebar.slider("Batch Size", 16, 64, 32)
 
 # Initialize the predictor
-predictor = StockPredictor(ticker, start_date, end_date)
+predictor = StockPredictor(ticker, start_date, end_date, api_key)
 
 # Fetch and display data
 try:

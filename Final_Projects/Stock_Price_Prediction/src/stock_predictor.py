@@ -1,24 +1,42 @@
 import numpy as np
 import pandas as pd
-import yfinance as yf
+from alpha_vantage.timeseries import TimeSeries
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense, Dropout
 import joblib
 import os
+from datetime import datetime, timedelta
 
 class StockPredictor:
-    def __init__(self, ticker, start_date, end_date):
+    def __init__(self, ticker, start_date, end_date, api_key):
         self.ticker = ticker
         self.start_date = start_date
         self.end_date = end_date
+        self.api_key = api_key
         self.scaler = MinMaxScaler(feature_range=(0, 1))
         self.model = None
+        self.ts = TimeSeries(key=api_key, output_format='pandas')
         
     def fetch_data(self):
-        """Fetch stock data from Yahoo Finance"""
-        stock_data = yf.download(self.ticker, start=self.start_date, end=self.end_date)
-        return stock_data
+        """Fetch stock data from Alpha Vantage"""
+        try:
+            # Get daily data
+            data, meta_data = self.ts.get_daily(symbol=self.ticker, outputsize='full')
+            
+            # Rename columns to match our expected format
+            data.columns = ['Open', 'High', 'Low', 'Close', 'Volume']
+            
+            # Filter data for the specified date range
+            mask = (data.index >= self.start_date) & (data.index <= self.end_date)
+            data = data.loc[mask]
+            
+            # Sort by date
+            data = data.sort_index()
+            
+            return data
+        except Exception as e:
+            raise Exception(f"Error fetching data from Alpha Vantage: {str(e)}")
     
     def prepare_data(self, data, lookback=60):
         """Prepare data for LSTM model"""

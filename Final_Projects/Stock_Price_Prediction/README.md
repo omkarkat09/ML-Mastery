@@ -4,7 +4,7 @@ This project implements a stock price prediction model using LSTM (Long Short-Te
 
 ## Features
 
-- Real-time stock data fetching using Yahoo Finance API
+- Real-time stock data fetching using Alpha Vantage API
 - LSTM-based deep learning model for price prediction
 - Interactive Streamlit dashboard with:
   - Historical stock price visualization
@@ -31,6 +31,11 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
+4. Get an Alpha Vantage API key:
+   - Visit https://www.alphavantage.co/support/#api-key
+   - Sign up for a free API key
+   - The free tier allows up to 5 API calls per minute and 500 calls per day
+
 ## Usage
 
 1. Start the Streamlit dashboard:
@@ -41,6 +46,7 @@ streamlit run dashboard/app.py
 2. Open your web browser and navigate to the URL shown in the terminal (typically http://localhost:8501)
 
 3. In the dashboard:
+   - Enter your Alpha Vantage API key
    - Enter a stock symbol (e.g., AAPL, GOOGL, MSFT)
    - Select the date range for historical data
    - Adjust model parameters if needed
@@ -68,6 +74,14 @@ The prediction model uses an LSTM neural network with the following architecture
 - Dense output layer for predictions
 - Mean Squared Error loss function
 - Adam optimizer
+
+## API Rate Limits
+
+The Alpha Vantage API has the following rate limits for the free tier:
+- 5 API calls per minute
+- 500 API calls per day
+
+Please be mindful of these limits when using the application.
 
 ## Contributing
 
